@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LibrarySystem.Api.Controllers
 {
     /// <summary>
-    /// Book api service
+    /// Book api Controller
     /// </summary>
     [Consumes("application/json")]
     [Produces("application/json")]
@@ -22,7 +22,7 @@ namespace LibrarySystem.Api.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public IActionResult GetBooks(string query)
+        public IActionResult GetAll(string query)
         {
             return Ok();
         }
@@ -38,7 +38,7 @@ namespace LibrarySystem.Api.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public IActionResult GetBookbyId(string id)
+        public IActionResult GetById(string id)
         {
             return Ok();
         }
@@ -52,9 +52,23 @@ namespace LibrarySystem.Api.Controllers
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(500)]
-        public IActionResult CreateBook([FromBody] CreateBookModel request)
+        public IActionResult Create([FromBody] CreateBookModel request)
         {
-            return CreatedAtAction(nameof(GetBookbyId), request);
+            return CreatedAtAction(nameof(GetById), request);
+        }
+        /// <summary>
+        /// Creates a book
+        /// </summary>
+        /// <returns>Book deleted successfully.</returns>
+        /// <param name="request">Represents the request of create book</param>
+        /// <response code="204">Creates a Book success.</response>
+        /// <response code="500">Unexpected Error.</response>
+        [HttpDelete("{id}")]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(500)]
+        public IActionResult Delete([FromBody] CreateBookModel request)
+        {
+            return CreatedAtAction(nameof(GetById), request);
         }
     }
 }
