@@ -22,7 +22,7 @@ namespace LibrarySystem.Api.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public IActionResult GetBooks(string query)
+        public IActionResult GetAll(string query)
         {
             return Ok();
         }
@@ -38,7 +38,7 @@ namespace LibrarySystem.Api.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public IActionResult GetBookbyId(string id)
+        public IActionResult GetById(string id)
         {
             return Ok();
         }
@@ -52,9 +52,9 @@ namespace LibrarySystem.Api.Controllers
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(500)]
-        public IActionResult CreateBook([FromBody] CreateBookModel request)
+        public IActionResult Create([FromBody] CreateBookModel request)
         {
-            return CreatedAtAction(nameof(GetBookbyId), request);
+            return CreatedAtAction(nameof(GetById), request);
         }
         /// <summary>
         /// Creates a book
@@ -66,9 +66,9 @@ namespace LibrarySystem.Api.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(201)]
         [ProducesResponseType(500)]
-        public IActionResult DeleteBook([FromBody] CreateBookModel request)
+        public IActionResult Delete([FromBody] CreateBookModel request)
         {
-            return CreatedAtAction(nameof(GetBookbyId), request);
+            return CreatedAtAction(nameof(GetById), request);
         }
     }
 }
