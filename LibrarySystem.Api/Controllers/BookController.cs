@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LibrarySystem.Api.Controllers
 {
     /// <summary>
-    /// Book api service
+    /// Book api Controller
     /// </summary>
     [Consumes("application/json")]
     [Produces("application/json")]
@@ -53,6 +53,20 @@ namespace LibrarySystem.Api.Controllers
         [ProducesResponseType(201)]
         [ProducesResponseType(500)]
         public IActionResult CreateBook([FromBody] CreateBookModel request)
+        {
+            return CreatedAtAction(nameof(GetBookbyId), request);
+        }
+        /// <summary>
+        /// Creates a book
+        /// </summary>
+        /// <returns>Book deleted successfully.</returns>
+        /// <param name="request">Represents the request of create book</param>
+        /// <response code="204">Creates a Book success.</response>
+        /// <response code="500">Unexpected Error.</response>
+        [HttpDelete("{id}")]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(500)]
+        public IActionResult DeleteBook([FromBody] CreateBookModel request)
         {
             return CreatedAtAction(nameof(GetBookbyId), request);
         }

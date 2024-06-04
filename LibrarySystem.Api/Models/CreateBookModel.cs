@@ -1,6 +1,6 @@
 ﻿namespace LibrarySystem.Api.Models
 {
-    public class CreateBookModel
+    public class CreateBookModel : BaseEntity
     {
         public string Title { get; set; }
         public string Author { get; set; }
