@@ -7,7 +7,7 @@ namespace LibrarySystem.Application.Services.Interfaces
     {
         List<BookViewModel> GetAll(string query);
         BookDetailsViewModel GetById(string id);
-        int Create(NewBookInputModel inputModel);
+        string Create(NewBookInputModel inputModel);
         void Delete(string id);
     }
 }
