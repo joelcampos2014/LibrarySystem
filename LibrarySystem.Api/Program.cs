@@ -1,3 +1,6 @@
+using LibrarySystem.Application.Services.Implementations;
+using LibrarySystem.Application.Services.Interfaces;
+using LibrarySystem.Infrastructure.Persistense;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +14,8 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Library System API", Version = "v1" });
 });
+builder.Services.AddSingleton<LibrarySystemDbContext>();
+builder.Services.AddScoped<IBookService, BookService>();
 
 var app = builder.Build();
 
