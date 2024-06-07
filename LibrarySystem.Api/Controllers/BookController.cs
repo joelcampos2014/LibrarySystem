@@ -1,4 +1,5 @@
-﻿using LibrarySystem.Api.Models;
+﻿using LibrarySystem.Application.InputModels;
+using LibrarySystem.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibrarySystem.Api.Controllers
@@ -11,6 +12,14 @@ namespace LibrarySystem.Api.Controllers
     [Route("api/books")]
     public class BookController : ControllerBase
     {
+        private readonly IBookService _bookService;
+
+        public BookController(IBookService bookService)
+        {
+            _bookService = bookService;
+        }
+
+
         /// <summary>
         /// Retrieves all books
         /// </summary>
@@ -24,7 +33,8 @@ namespace LibrarySystem.Api.Controllers
         [ProducesResponseType(500)]
         public IActionResult GetAll(string query)
         {
-            return Ok();
+            var books = _bookService.GetAll(query);
+            return Ok(books);
         }
 
         /// <summary>
@@ -40,7 +50,8 @@ namespace LibrarySystem.Api.Controllers
         [ProducesResponseType(500)]
         public IActionResult GetById(string id)
         {
-            return Ok();
+            var book = _bookService.GetById(id);
+            return Ok(book);
         }
         /// <summary>
         /// Creates a book
@@ -52,12 +63,13 @@ namespace LibrarySystem.Api.Controllers
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(500)]
-        public IActionResult Create([FromBody] CreateBookModel request)
+        public IActionResult Create([FromBody] NewBookInputModel request)
         {
-            return CreatedAtAction(nameof(GetById), request);
+            var id = _bookService.Create(request);
+            return CreatedAtAction(nameof(GetById), new { id = id }, request);
         }
         /// <summary>
-        /// Creates a book
+        /// Deletes a book
         /// </summary>
         /// <returns>Book deleted successfully.</returns>
         /// <param name="request">Represents the request of create book</param>
@@ -66,9 +78,10 @@ namespace LibrarySystem.Api.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(201)]
         [ProducesResponseType(500)]
-        public IActionResult Delete([FromBody] CreateBookModel request)
+        public IActionResult Delete(string id)
         {
-            return CreatedAtAction(nameof(GetById), request);
+            _bookService.Delete(id);
+            return NoContent();
         }
     }
 }
